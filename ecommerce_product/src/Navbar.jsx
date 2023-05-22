@@ -5,6 +5,10 @@ import Links from './Links';
 import User from './User';
 
 const Navbar = () => {
+	const handleClick = () => {
+		const dialog = document.querySelector('dialog');
+		dialog.showModal();
+	};
 	return (
 		<nav className="nav">
 			<div className="container | nav__container">
@@ -12,6 +16,7 @@ const Navbar = () => {
 					<button
 						type="button"
 						className="sidebar_btn btn"
+						onClick={handleClick}
 					>
 						<img
 							src={bars}

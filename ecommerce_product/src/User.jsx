@@ -12,7 +12,7 @@ const User = () => {
 					src={cart}
 					alt="cart"
 				/>
-				<span className="cart_counter">3</span>
+				<span className="cart_counter | bold">3</span>
 			</button>
 			<a
 				href="#"
