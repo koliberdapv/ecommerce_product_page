@@ -26,48 +26,48 @@ export const links = [
 	},
 ];
 
-export const productThumbnailImages = [
-	{
-		id: 1,
-		content: 'image-product-1',
-		url: './images/image-product-1-thumbnail.jpg',
-	},
-	{
-		id: 2,
-		content: 'image-product-2',
-		url: './images/image-product-2-thumbnail.jpg',
-	},
-	{
-		id: 3,
-		content: 'image-product-3',
-		url: './images/image-product-3-thumbnail.jpg',
-	},
-	{
-		id: 4,
-		content: 'image-product-4',
-		url: './images/image-product-4-thumbnail.jpg',
-	},
-];
+// export const productThumbnailImages = [
+// 	{
+// 		id: 1,
+// 		content: 'image-product-1',
+// 		url: './images/image-product-1-thumbnail.jpg',
+// 	},
+// 	{
+// 		id: 2,
+// 		content: 'image-product-2',
+// 		url: './images/image-product-2-thumbnail.jpg',
+// 	},
+// 	{
+// 		id: 3,
+// 		content: 'image-product-3',
+// 		url: './images/image-product-3-thumbnail.jpg',
+// 	},
+// 	{
+// 		id: 4,
+// 		content: 'image-product-4',
+// 		url: './images/image-product-4-thumbnail.jpg',
+// 	},
+// ];
 
-export const productImages = [
-	{
-		id: 1,
-		content: 'image-product-1',
-		url: './images/image-product-1.jpg',
-	},
-	{
-		id: 2,
-		content: 'image-product-2',
-		url: './images/image-product-2.jpg',
-	},
-	{
-		id: 3,
-		content: 'image-product-3',
-		url: './images/image-product-3.jpg',
-	},
-	{
-		id: 4,
-		content: 'image-product-4',
-		url: './images/image-product-4.jpg',
-	},
-];
+// export const productImages = [
+// 	{
+// 		id: 1,
+// 		content: 'image-product-1',
+// 		url: './images/image-product-1.jpg',
+// 	},
+// 	{
+// 		id: 2,
+// 		content: 'image-product-2',
+// 		url: './images/image-product-2.jpg',
+// 	},
+// 	{
+// 		id: 3,
+// 		content: 'image-product-3',
+// 		url: './images/image-product-3.jpg',
+// 	},
+// 	{
+// 		id: 4,
+// 		content: 'image-product-4',
+// 		url: './images/image-product-4.jpg',
+// 	},
+// ];

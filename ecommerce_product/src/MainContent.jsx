@@ -4,10 +4,10 @@ import ProductPhotos from './ProductPhotos';
 const MainContent = () => {
 	return (
 		<main className="main_content">
-			<div className="container">
-				{/* <ProductPhotos /> */}
-				<ProductInfo />
-			</div>
+			{/* <div className="container"> */}
+			<ProductPhotos />
+			<ProductInfo />
+			{/* </div> */}
 		</main>
 	);
 };

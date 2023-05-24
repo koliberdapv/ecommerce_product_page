@@ -21,7 +21,6 @@ const reducer = (state, action) => {
 		return { ...state, cart: newCart };
 	}
 	if (action.type === CLEAR_CART) {
-		console.log('clear');
 		const newCartAmount = 0;
 		const newTotalPrice = 0;
 		const newCart = {
