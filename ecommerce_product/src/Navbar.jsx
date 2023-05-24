@@ -6,7 +6,7 @@ import User from './User';
 
 const Navbar = () => {
 	const handleClick = () => {
-		const dialog = document.querySelector('dialog');
+		const dialog = document.querySelector('.sidebar');
 		dialog.showModal();
 	};
 	return (

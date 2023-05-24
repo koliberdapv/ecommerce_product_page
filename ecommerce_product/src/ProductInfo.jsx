@@ -8,7 +8,7 @@ const ProductInfo = () => {
 		<section className="product_info">
 			<div className="product_info_container | grid">
 				<h2 className="company_title | bold">sneaker company</h2>
-				<h1 className="product_title | bold">Fall Limited Edition Sneakers</h1>
+				<h1 className="product_title | bold">{product.name}</h1>
 				<p className="product_description">
 					These low-profile sneakers are your perfect casual wear companion.
 					Featuring a durable rubber outer sole, they'll withstand everything

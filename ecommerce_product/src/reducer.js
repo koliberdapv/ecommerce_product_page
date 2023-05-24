@@ -1,4 +1,4 @@
-import { INCREASE, DECREASE, ADD_TO_CART } from './actions';
+import { INCREASE, DECREASE, ADD_TO_CART, CLEAR_CART } from './actions';
 
 const reducer = (state, action) => {
 	if (action.type === INCREASE) {
@@ -13,6 +13,17 @@ const reducer = (state, action) => {
 	if (action.type === ADD_TO_CART) {
 		const newCartAmount = state.cart.amountInCart + state.amount;
 		const newTotalPrice = state.product.price * newCartAmount;
+		const newCart = {
+			...state.cart,
+			amountInCart: newCartAmount,
+			totalPrice: newTotalPrice,
+		};
+		return { ...state, cart: newCart };
+	}
+	if (action.type === CLEAR_CART) {
+		console.log('clear');
+		const newCartAmount = 0;
+		const newTotalPrice = 0;
 		const newCart = {
 			...state.cart,
 			amountInCart: newCartAmount,
