@@ -7,9 +7,20 @@ import ThumbnailsList from './ThumbnailsList';
 import { useGlobalContext } from './context';
 
 const ProductPhotos = () => {
-	// const carouselContainer = useRef(null);
-	const { activeImageIndex, setActiveImageIndex, changeActivePhoto } =
-		useGlobalContext();
+	const {
+		activeImageIndex,
+		setActiveImageIndex,
+		changeActivePhoto,
+		setIsZoomOpen,
+		isZoomOpen,
+	} = useGlobalContext();
+
+	const handleZoom = () => {
+		if (isZoomOpen) return;
+		const zoomContainer = document.getElementById('zoom_container');
+		zoomContainer.showModal();
+		setIsZoomOpen(true);
+	};
 
 	return (
 		<section className="product_photos">
@@ -17,6 +28,7 @@ const ProductPhotos = () => {
 				<div
 					className="carousel"
 					data-carousel
+					onClick={handleZoom}
 				>
 					<button
 						type="button"
@@ -58,11 +70,13 @@ const ProductPhotos = () => {
 					</button>
 					<ul
 						data-slides
-						id="slides"
+						// id="slides"
+						id={isZoomOpen ? 'zoom_slides' : 'slides'}
 					>
 						<li
 							className="slide"
 							data-active
+							autoFocus
 						>
 							<img
 								data-photo="1"

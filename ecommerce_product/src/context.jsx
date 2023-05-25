@@ -22,6 +22,7 @@ export const AppProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 	const [activeImageIndex, setActiveImageIndex] = useState(0);
+	const [isZoomOpen, setIsZoomOpen] = useState(false);
 
 	const increase = () => {
 		dispatch({ type: INCREASE });
@@ -75,14 +76,32 @@ export const AppProvider = ({ children }) => {
 		const newIndex = parseInt(
 			e.target.closest('.single_thumbnail').dataset.thumbnailIndex
 		);
+		if (newIndex === activeImageIndex) return;
+
+		if (isZoomOpen) {
+			const slides = e.target
+				.closest('.single_thumbnail')
+				.closest('dialog')
+				.querySelector('[data-slides]');
+			const activeSlide = slides.querySelector('[data-active]');
+
+			slides.children[newIndex].dataset.active = true;
+			delete activeSlide.dataset.active;
+			setActiveImageIndex(newIndex);
+			return;
+		}
 		const slides = document.getElementById('slides');
 		const activeSlide = slides.querySelector('[data-active]');
 
 		slides.children[newIndex].dataset.active = true;
 		delete activeSlide.dataset.active;
 		setActiveImageIndex(newIndex);
+	};
 
-		// console.log(slides);
+	const closeZoom = () => {
+		const zoomContainer = document.getElementById('zoom_container');
+		zoomContainer.close();
+		setIsZoomOpen(false);
 	};
 
 	return (
@@ -100,6 +119,9 @@ export const AppProvider = ({ children }) => {
 				setActiveImageIndex,
 				changeActivePhoto,
 				changeActiveThumbnail,
+				isZoomOpen,
+				setIsZoomOpen,
+				closeZoom,
 			}}
 		>
 			{children}

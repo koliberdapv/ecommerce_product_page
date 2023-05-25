@@ -1,5 +1,6 @@
 import ProductInfo from './ProductInfo';
 import ProductPhotos from './ProductPhotos';
+import Zoom from './Zoom';
 
 const MainContent = () => {
 	return (
@@ -8,6 +9,7 @@ const MainContent = () => {
 				<ProductPhotos />
 				<ProductInfo />
 			</div>
+			<Zoom />
 		</main>
 	);
 };
