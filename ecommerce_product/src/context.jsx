@@ -21,6 +21,7 @@ const initialState = {
 export const AppProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [isCartOpen, setIsCartOpen] = useState(false);
+	const [activeImageIndex, setActiveImageIndex] = useState(0);
 
 	const increase = () => {
 		dispatch({ type: INCREASE });
@@ -52,6 +53,38 @@ export const AppProvider = ({ children }) => {
 		}
 	};
 
+	const changeActivePhoto = (e) => {
+		const offset = e.target.closest('.carousel_btn').classList.contains('next')
+			? 1
+			: -1;
+		const slides = e.target
+			.closest('[data-carousel]')
+			.querySelector('[data-slides]');
+
+		const activeSlide = slides.querySelector('[data-active]');
+		let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+
+		if (newIndex < 0) newIndex = slides.children.length - 1;
+		if (newIndex >= slides.children.length) newIndex = 0;
+
+		slides.children[newIndex].dataset.active = true;
+		delete activeSlide.dataset.active;
+		setActiveImageIndex(newIndex);
+	};
+	const changeActiveThumbnail = (e) => {
+		const newIndex = parseInt(
+			e.target.closest('.single_thumbnail').dataset.thumbnailIndex
+		);
+		const slides = document.getElementById('slides');
+		const activeSlide = slides.querySelector('[data-active]');
+
+		slides.children[newIndex].dataset.active = true;
+		delete activeSlide.dataset.active;
+		setActiveImageIndex(newIndex);
+
+		// console.log(slides);
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -63,6 +96,10 @@ export const AppProvider = ({ children }) => {
 				setIsCartOpen,
 				handleCartToggle,
 				clearCart,
+				activeImageIndex,
+				setActiveImageIndex,
+				changeActivePhoto,
+				changeActiveThumbnail,
 			}}
 		>
 			{children}

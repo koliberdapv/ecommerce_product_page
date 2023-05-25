@@ -16,8 +16,10 @@ const ProductInfo = () => {
 						the weather can offer.
 					</p>
 					<div className="product_price_container | flex">
-						<span className="price | bold">${product.price.toFixed(2)}</span>
-						<span className="discount | bold">{product.discount}%</span>
+						<div className="space_out | flex">
+							<span className="price | bold">${product.price.toFixed(2)}</span>
+							<span className="discount | bold">{product.discount}%</span>
+						</div>
 						<span className="full_price | bold">
 							${product.fullPrice.toFixed(2)}
 						</span>

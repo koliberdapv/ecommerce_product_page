@@ -1,27 +1,16 @@
-import { useState } from 'react';
+import { useReducer, useRef, useState } from 'react';
 import product_img_1 from './images/image-product-1.jpg';
 import product_img_2 from './images/image-product-2.jpg';
 import product_img_3 from './images/image-product-3.jpg';
 import product_img_4 from './images/image-product-4.jpg';
+import ThumbnailsList from './ThumbnailsList';
+import { useGlobalContext } from './context';
 
 const ProductPhotos = () => {
-	const handleArrowClick = (e) => {
-		const offset = e.target.closest('.carousel_btn').classList.contains('next')
-			? 1
-			: -1;
-		const slides = e.target
-			.closest('[data-carousel]')
-			.querySelector('[data-slides]');
+	// const carouselContainer = useRef(null);
+	const { activeImageIndex, setActiveImageIndex, changeActivePhoto } =
+		useGlobalContext();
 
-		const activeSlide = slides.querySelector('[data-active]');
-		let newIndex = [...slides.children].indexOf(activeSlide) + offset;
-
-		if (newIndex < 0) newIndex = slides.children.length - 1;
-		if (newIndex >= slides.children.length) newIndex = 0;
-
-		slides.children[newIndex].dataset.active = true;
-		delete activeSlide.dataset.active;
-	};
 	return (
 		<section className="product_photos">
 			<div className="product_photos_container">
@@ -32,7 +21,7 @@ const ProductPhotos = () => {
 					<button
 						type="button"
 						className="btn carousel_btn prev"
-						onClick={handleArrowClick}
+						onClick={changeActivePhoto}
 					>
 						<svg
 							width="12"
@@ -51,7 +40,7 @@ const ProductPhotos = () => {
 					<button
 						type="button"
 						className="btn carousel_btn next"
-						onClick={handleArrowClick}
+						onClick={changeActivePhoto}
 					>
 						<svg
 							width="13"
@@ -67,7 +56,10 @@ const ProductPhotos = () => {
 							/>
 						</svg>
 					</button>
-					<ul data-slides>
+					<ul
+						data-slides
+						id="slides"
+					>
 						<li
 							className="slide"
 							data-active
@@ -101,7 +93,7 @@ const ProductPhotos = () => {
 						</li>
 					</ul>
 				</div>
-				{/* <div className="photos_list"></div> */}
+				<ThumbnailsList />
 			</div>
 		</section>
 	);

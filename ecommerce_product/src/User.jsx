@@ -27,6 +27,7 @@ const User = () => {
 					{cart.amountInCart}
 				</span>
 			</button>
+
 			<dialog className="cart_dialog">
 				<div className="cart_container | grid">
 					<h3 className="cart_header">Cart</h3>
@@ -76,6 +77,7 @@ const User = () => {
 					</div>
 				</div>
 			</dialog>
+
 			<a
 				href="#"
 				className="user_avatar"
