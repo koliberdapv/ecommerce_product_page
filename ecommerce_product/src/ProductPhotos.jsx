@@ -17,6 +17,7 @@ const ProductPhotos = () => {
 
 	const handleZoom = () => {
 		if (isZoomOpen) return;
+		if (window.innerWidth < 900) return;
 		const zoomContainer = document.getElementById('zoom_container');
 		zoomContainer.showModal();
 		setIsZoomOpen(true);
@@ -70,8 +71,7 @@ const ProductPhotos = () => {
 					</button>
 					<ul
 						data-slides
-						// id="slides"
-						id={isZoomOpen ? 'zoom_slides' : 'slides'}
+						id="slides"
 					>
 						<li
 							className="slide"
