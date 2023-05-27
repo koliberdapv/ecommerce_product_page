@@ -1,4 +1,3 @@
-import { useGlobalContext } from './context';
 import logo from './images/logo.svg';
 import bars from './images/icon-menu.svg';
 import Links from './Links';

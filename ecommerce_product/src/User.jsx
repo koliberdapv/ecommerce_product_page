@@ -1,9 +1,8 @@
 import avatar from './images/image-avatar.png';
 import cartImage from './images/icon-cart.svg';
-import { useGlobalContext } from './context';
 import url from './images/image-product-1-thumbnail.jpg';
 import deleteImage from './images/icon-delete.svg';
-import { memo } from 'react';
+import { useGlobalContext } from './context';
 
 const User = () => {
 	const { cart, handleCartToggle, product, clearCart } = useGlobalContext();
@@ -91,4 +90,4 @@ const User = () => {
 	);
 };
 
-export default memo(User);
+export default User;

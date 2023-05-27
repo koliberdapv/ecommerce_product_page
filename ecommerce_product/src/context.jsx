@@ -1,6 +1,8 @@
 import { useContext, createContext, useState, useReducer } from 'react';
 import reducer from './reducer';
 import { INCREASE, DECREASE, ADD_TO_CART, CLEAR_CART } from './actions';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AppContext = createContext();
 
@@ -21,7 +23,6 @@ const initialState = {
 export const AppProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [isCartOpen, setIsCartOpen] = useState(false);
-	const [activeImageIndex, setActiveImageIndex] = useState(0);
 	const [isZoomOpen, setIsZoomOpen] = useState(false);
 
 	const increase = () => {
@@ -34,10 +35,30 @@ export const AppProvider = ({ children }) => {
 
 	const addToCart = () => {
 		dispatch({ type: ADD_TO_CART });
+		if (state.amount === 0) {
+			toast.error('Please chose the amount', {
+				position: toast.POSITION.TOP_CENTER,
+			});
+			return;
+		}
+		toast.success(
+			`${state.amount > 1 ? 'Items have' : 'Item has'} been added to the cart`,
+			{
+				position: toast.POSITION.TOP_CENTER,
+			}
+		);
 	};
 
 	const clearCart = () => {
 		dispatch({ type: CLEAR_CART });
+		toast.success(
+			`${
+				state.cart.amountInCart > 1 ? 'Items have' : 'Item has'
+			} been removed from the cart`,
+			{
+				position: toast.POSITION.TOP_CENTER,
+			}
+		);
 	};
 
 	const handleCartToggle = () => {
@@ -54,48 +75,57 @@ export const AppProvider = ({ children }) => {
 		}
 	};
 
-	const changeActivePhoto = (e) => {
-		const offset = e.target.closest('.carousel_btn').classList.contains('next')
-			? 1
-			: -1;
-		const slides = e.target
-			.closest('[data-carousel]')
-			.querySelector('[data-slides]');
+	const handleSlideChange = (e) => {
+		let newIndex;
+		let slides;
+		let thumbnails_list;
+		let activeSlide;
+		let activeThumbnail;
 
-		const activeSlide = slides.querySelector('[data-active]');
-		let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+		const input = e.target.closest('[data-change]');
+		const isThumbnail = input.classList.contains('single_thumbnail');
+		const isArrowBtn = input.classList.contains('carousel_btn');
 
-		if (newIndex < 0) newIndex = slides.children.length - 1;
-		if (newIndex >= slides.children.length) newIndex = 0;
-
-		slides.children[newIndex].dataset.active = true;
-		delete activeSlide.dataset.active;
-		setActiveImageIndex(newIndex);
-	};
-	const changeActiveThumbnail = (e) => {
-		const newIndex = parseInt(
-			e.target.closest('.single_thumbnail').dataset.thumbnailIndex
-		);
-		if (newIndex === activeImageIndex) return;
-
-		if (isZoomOpen) {
-			const slides = e.target
-				.closest('.single_thumbnail')
-				.closest('dialog')
-				.querySelector('[data-slides]');
-			const activeSlide = slides.querySelector('[data-active]');
-
-			slides.children[newIndex].dataset.active = true;
-			delete activeSlide.dataset.active;
-			setActiveImageIndex(newIndex);
-			return;
+		if (isThumbnail) {
+			thumbnails_list = input.closest('.thumbnails_list');
 		}
-		const slides = document.getElementById('slides');
-		const activeSlide = slides.querySelector('[data-active]');
+
+		if (isArrowBtn) {
+			thumbnails_list = input
+				.closest('.product_photos_container')
+				.querySelector('.thumbnails_list');
+		}
+
+		activeThumbnail = thumbnails_list.querySelector('[data-thumbnail-active]');
+
+		if (isArrowBtn) {
+			slides = input.closest('[data-carousel]').querySelector('[data-slides]');
+
+			const offset = input.classList.contains('next') ? 1 : -1;
+			activeSlide = slides.querySelector('[data-active]');
+			newIndex = [...slides.children].indexOf(activeSlide) + offset;
+
+			if (newIndex < 0) newIndex = slides.children.length - 1;
+			if (newIndex >= slides.children.length) newIndex = 0;
+		}
+
+		if (isThumbnail) {
+			slides = input
+				.closest('.product_photos_container')
+				.querySelector('[data-slides]');
+			activeSlide = slides.querySelector('[data-active]');
+
+			const activeImageIndex = parseInt(activeThumbnail.dataset.thumbnailIndex);
+
+			newIndex = parseInt(input.dataset.thumbnailIndex);
+			if (newIndex === activeImageIndex) return;
+		}
 
 		slides.children[newIndex].dataset.active = true;
 		delete activeSlide.dataset.active;
-		setActiveImageIndex(newIndex);
+
+		thumbnails_list.children[newIndex].dataset.thumbnailActive = true;
+		delete activeThumbnail.dataset.thumbnailActive;
 	};
 
 	const closeZoom = () => {
@@ -115,13 +145,10 @@ export const AppProvider = ({ children }) => {
 				setIsCartOpen,
 				handleCartToggle,
 				clearCart,
-				activeImageIndex,
-				setActiveImageIndex,
-				changeActivePhoto,
-				changeActiveThumbnail,
 				isZoomOpen,
 				setIsZoomOpen,
 				closeZoom,
+				handleSlideChange,
 			}}
 		>
 			{children}

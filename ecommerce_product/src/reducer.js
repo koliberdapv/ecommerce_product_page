@@ -18,6 +18,7 @@ const reducer = (state, action) => {
 			amountInCart: newCartAmount,
 			totalPrice: newTotalPrice,
 		};
+
 		return { ...state, cart: newCart };
 	}
 	if (action.type === CLEAR_CART) {
@@ -28,6 +29,7 @@ const reducer = (state, action) => {
 			amountInCart: newCartAmount,
 			totalPrice: newTotalPrice,
 		};
+
 		return { ...state, cart: newCart };
 	}
 

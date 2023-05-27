@@ -1,4 +1,3 @@
-import { useReducer, useRef, useState } from 'react';
 import product_img_1 from './images/image-product-1.jpg';
 import product_img_2 from './images/image-product-2.jpg';
 import product_img_3 from './images/image-product-3.jpg';
@@ -7,13 +6,7 @@ import ThumbnailsList from './ThumbnailsList';
 import { useGlobalContext } from './context';
 
 const ProductPhotos = () => {
-	const {
-		activeImageIndex,
-		setActiveImageIndex,
-		changeActivePhoto,
-		setIsZoomOpen,
-		isZoomOpen,
-	} = useGlobalContext();
+	const { setIsZoomOpen, isZoomOpen, handleSlideChange } = useGlobalContext();
 
 	const handleZoom = () => {
 		if (isZoomOpen) return;
@@ -34,7 +27,8 @@ const ProductPhotos = () => {
 					<button
 						type="button"
 						className="btn carousel_btn prev"
-						onClick={changeActivePhoto}
+						onClick={handleSlideChange}
+						data-change
 					>
 						<svg
 							width="12"
@@ -53,7 +47,8 @@ const ProductPhotos = () => {
 					<button
 						type="button"
 						className="btn carousel_btn next"
-						onClick={changeActivePhoto}
+						onClick={handleSlideChange}
+						data-change
 					>
 						<svg
 							width="13"
