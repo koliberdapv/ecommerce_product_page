@@ -1,4 +1,5 @@
 import { INCREASE, DECREASE, ADD_TO_CART, CLEAR_CART } from './actions';
+// just making a comment to see if github commits are working
 
 const reducer = (state, action) => {
 	if (action.type === INCREASE) {
